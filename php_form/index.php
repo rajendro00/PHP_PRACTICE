@@ -15,12 +15,28 @@
                 <h2> Our First Form </h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, eveniet!</p>
                 <p>
-                    <?php if( isset($_GET['fname']) && !empty(($_GET['fname']))){ ?>
-                    First Name:<?php echo $_GET['fname']; ?> <br>
-                    <?php } ?>
-                    <?php IF( isset($_GET['lname']) && !empty(($_GET['lname']))) {?>
-                    Last Name: <?php echo $_GET['lname']; ?>  <br>
-                    <?php } ?>
+                    <?php
+                     $fname = "";
+                     $lname = "";
+                    ?>
+                    <?php if( isset($_GET['fname']) && !empty(($_GET['fname']))){ 
+                        // $fname = htmlspecialchars($_GET['fname']);
+                        // $fname = filter_input( INPUT_GET, 'fname', FILTER_SANITIZE_STRING);
+                        $fname = filter_input( INPUT_GET, 'fname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    }?>
+                    <?php if( isset($_GET['lname']) && !empty(($_GET['lname']))) {
+                        // $lname = htmlspecialchars($_GET['lname']);
+                        // $lname = filter_input( INPUT_GET, 'lname', FILTER_SANITIZE_STRING);
+                        $lname = filter_input( INPUT_GET, 'lname', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                     }?>
+                </p>
+                <p>
+                <?php if( isset($_GET['fname']) && !empty(($_GET['fname']))){ ?>
+                    First Name: <?php echo $fname; ?><br>
+                <?php } ?>
+                <?php if( isset($_GET['lname']) && !empty(($_GET['lname']))){ ?>
+                    Last Name: <?php echo $lname; ?><br>
+                <?php } ?>
                 </p>
             </div>
         </div>
@@ -28,10 +44,10 @@
             <div class="col-lg-12">
                 <form action="">
                     <label for="fname">First Name </label><br>
-                    <input type="text" name="fname" id="fname"><br>
+                    <input type="text" name="fname" id="fname" value="<?php echo $fname; ?>"><br>
 
                     <label for="lname">Last Name </label><br>
-                    <input type="text" name="lname" id="lname"><br>
+                    <input type="text" name="lname" id="lname" value="<?php echo $lname; ?>"><br>
 
                     <button type="submit">Submit</button>
                 </form>                
